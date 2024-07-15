@@ -120,6 +120,7 @@ Dalam proyek ini, metrik utama yang digunakan untuk mengevaluasi performa model 
 
 MSE memberikan gambaran seberapa jauh nilai yang diprediksi oleh model dari nilai sebenarnya. Nilai MSE yang lebih rendah menunjukkan bahwa model memiliki performa yang lebih baik dalam hal akurasi prediksi. Pada proyek ini terdapat eval.
 Pada dataset validasi menggunakan metriks evaluasi Root Mean Square Error (RMSE) dihitung dengan cara mengkuadratkan selisih antara nilai yang diprediksi dan nilai sebenarnya, menghitung rata-rata dari selisih kuadrat tersebut, dan kemudian mengambil akar kuadrat dari rata-rata tersebut. Formula RMSE adalah sebagai berikut: 
+
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/Screenshot%202024-07-15%20142910.png)
 
 ## Kesimpulan
