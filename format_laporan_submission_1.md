@@ -104,7 +104,8 @@ Langkah selanjutnya adalah mengecek apakah ada missing values dalam dataset. Mis
 ## Data Preparation
 Proses pembagian dataset menjadi data training dan data testing penting dalam pengembangan model machine learning. Ini dilakukan untuk mengevaluasi performa model pada data yang belum pernah dilihat sebelumnya dan untuk menghindari overfitting.
 Data training digunakan untuk melatih model, sedangkan data testing digunakan untuk menguji seberapa baik model yang dilatih dapat melakukan prediksi pada data yang belum pernah dilihat sebelumnya. Dengan memisahkan data training dan data testing, kita dapat mengukur sejauh mana model dapat mengeneralisasi dan memprediksi dengan akurat pada data baru.
-Rasio 80:20 sering digunakan sebagai perbandingan pembagian data training dan data testing. Data training sebesar 80% digunakan untuk melatih model, sementara data testing sebesar 20% digunakan untuk menguji performa model. Rasio ini merupakan aturan praktis umum yang memberikan keseimbangan antara memiliki jumlah data yang cukup untuk melatih model dan menyediakan data yang cukup untuk menguji performa model. Namun, rasio ini dapat bervariasi tergantung pada karakteristik dataset dan kebutuhan proyek tertentu.
+Rasio 80:20 sering digunakan sebagai perbandingan pembagian data training dan data testing. Data training sebesar 95% digunakan untuk melatih model, sementara data testing sebesar 5% digunakan untuk menguji performa model. Rasio ini merupakan aturan praktis umum yang memberikan keseimbangan antara memiliki jumlah data yang cukup untuk melatih model dan menyediakan data yang cukup untuk menguji performa model. Namun, rasio ini dapat bervariasi tergantung pada karakteristik dataset dan kebutuhan proyek tertentu.
+Selain hal tersebut dilakukan pula standarisasi data  menggunakan MinMaxScaler dari pustaka sklearn.preprocessing. Proses ini mengubah data menjadi skala antara 0 dan 1 sebelum model dilatih.Sehinggan seluruh dataset 'Close' yang awalnya mungkin memiliki nilai beragam, kini diubah menjadi nilai antara 0 dan 1 agar lebih mudah dan efektif untuk dilatih oleh model LSTM. Ini membantu model dalam konvergensi dan stabilitas selama pelatihan.
 
 ## Modeling
 Dalam pengembangan model prediksi harga saham, kami membangun model Long Short-Term Memory (LSTM) menggunakan Sequential API dari Keras. Model ini terdiri dari dua lapisan LSTM dengan 128 unit pada lapisan pertama dan 64 unit pada lapisan kedua. Lapisan pertama diatur dengan `return_sequences=True` untuk memastikan keluaran dari setiap langkah waktu dikembalikan sebagai urutan penuh. Bentuk input data didefinisikan oleh `input_shape=(x_train.shape[1], 1)`. Setelah lapisan LSTM, dua lapisan Dense ditambahkan, yaitu dengan 25 unit dan 1 unit, yang terakhir digunakan untuk membuat prediksi akhir.
@@ -115,8 +116,25 @@ Pada pengujian lain, model juga dilatih dengan ukuran batch yang lebih besar (32
 ## Evaluation
 Dalam proyek ini, metrik utama yang digunakan untuk mengevaluasi performa model adalah Mean Squared Error (MSE). MSE adalah metrik yang umum digunakan dalam masalah regresi untuk mengukur rata-rata kuadrat selisih antara nilai yang diprediksi oleh model dan nilai aktual. Secara matematis, MSE didefinisikan sebagai:
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/Screenshot%202024-07-15%20135515.png)
+
 MSE memberikan gambaran seberapa jauh nilai yang diprediksi oleh model dari nilai sebenarnya. Nilai MSE yang lebih rendah menunjukkan bahwa model memiliki performa yang lebih baik dalam hal akurasi prediksi. Pada proyek ini terdapat eval.
 Pada dataset validasi menggunakan metriks evaluasi Root Mean Square Error (RMSE) dihitung dengan cara mengkuadratkan selisih antara nilai yang diprediksi dan nilai sebenarnya, menghitung rata-rata dari selisih kuadrat tersebut, dan kemudian mengambil akar kuadrat dari rata-rata tersebut. Formula RMSE adalah sebagai berikut: 
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/Screenshot%202024-07-15%20142910.png)
-Pada hasil akhir proyek didapatkan MSE sebesar 1.1593e-04 dan RMSE sebesar 4.155010627231263. Untuk hasil prediksi didapatkan gambar grafik sebagai berikut : 
+
+## Kesimpulan
+Proyek ini bertujuan untuk membantu investor dan perusahaan dalam memprediksi harga penutupan saham Apple Inc. (AAPL) menggunakan model Long Short-Term Memory (LSTM). Evaluasi model menunjukkan bahwa metrik utama, Mean Squared Error (MSE) sebesar 1.1593e-04 dan Root Mean Square Error (RMSE) sebesar 4.1550, mengindikasikan tingkat akurasi yang tinggi dalam prediksi harga saham. 
+**Pencapaian Tujuan :**
+1. Mengembangkan Model Prediktif: Model LSTM yang dikembangkan berhasil memberikan prediksi harga saham dengan akurasi yang tinggi, dibuktikan dengan nilai MSE dan RMSE yang rendah.
+2. Meningkatkan Keputusan Investasi: Model ini menyediakan analisis mendalam tentang faktor-faktor yang mempengaruhi harga saham, memungkinkan investor untuk membuat keputusan investasi yang lebih informasional dan cerdas.
+3. Memperkuat Keunggulan Kompetitif: Dengan menggunakan teknologi analisis data yang canggih, perusahaan dapat merespons perubahan pasar dengan cepat dan efektif, serta mengidentifikasi peluang investasi potensial.
+4. Mengoptimalkan Efisiensi Operasional: Proses analisis dan pengambilan keputusan menjadi lebih efisien dan produktif, menghemat waktu dan sumber daya perusahaan.
+
+**Manfaat Analisis**
+1. Analisis Prediktif: Model LSTM membantu meningkatkan keputusan investasi di pasar saham Apple Inc. dengan memberikan prediksi harga yang akurat.
+2. Identifikasi Faktor-faktor Utama: Analisis tren historis dan pola moving average memberikan wawasan tambahan tentang faktor-faktor yang mempengaruhi harga saham.
+3. Teknologi Analisis Data: Teknologi ini meningkatkan responsivitas terhadap perubahan harga saham dan memperkuat posisi kompetitif di pasar.
+4. Efisiensi dan Produktivitas: Proyek ini memaksimalkan efisiensi dan produktivitas dalam analisis dan pengambilan keputusan di pasar saham Apple Inc.
+5. Strategi Investasi Adaptif: Model prediktif membantu merancang strategi investasi yang lebih adaptif dan efektif.
+Secara keseluruhan, proyek ini berhasil menjawab problem statement, mencapai tujuan yang diharapkan, dan memberikan solusi yang berdampak positif terhadap business understanding, meningkatkan keputusan investasi, memperkuat keunggulan kompetitif, dan mengoptimalkan efisiensi operasional di pasar saham Apple Inc.
+Untuk hasil prediksi didapatkan gambar grafik sebagai berikut : 
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/pred.png)
