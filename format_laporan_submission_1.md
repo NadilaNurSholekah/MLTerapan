@@ -115,6 +115,7 @@ Pada pengujian lain, model juga dilatih dengan ukuran batch yang lebih besar (32
 
 ## Evaluation
 Dalam proyek ini, metrik utama yang digunakan untuk mengevaluasi performa model adalah Mean Squared Error (MSE). MSE adalah metrik yang umum digunakan dalam masalah regresi untuk mengukur rata-rata kuadrat selisih antara nilai yang diprediksi oleh model dan nilai aktual. Secara matematis, MSE didefinisikan sebagai:
+
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/Screenshot%202024-07-15%20135515.png)
 
 MSE memberikan gambaran seberapa jauh nilai yang diprediksi oleh model dari nilai sebenarnya. Nilai MSE yang lebih rendah menunjukkan bahwa model memiliki performa yang lebih baik dalam hal akurasi prediksi. Pada proyek ini terdapat eval.
