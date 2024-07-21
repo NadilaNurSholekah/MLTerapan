@@ -200,8 +200,7 @@ Evaluasi sistem rekomendasi bertujuan untuk mengukur efektivitas sistem dalam me
 - **Menghindari Duplikasi dan Memprioritaskan Peringkat:**
   Menghilangkan restoran duplikat dan memilih restoran dengan rating tertinggi memastikan bahwa rekomendasi tidak hanya relevan tetapi juga berkualitas tinggi. Ini membantu restoran baru untuk mendapatkan posisi yang baik di pasar dengan menawarkan produk yang sesuai dengan ekspektasi pelanggan dan meningkatkan daya tarik mereka di pasar.
 
-### Kesimpulan
-Sistem rekomendasi berbasis Content-Based Filtering ini berhasil dalam memberikan rekomendasi yang relevan berdasarkan ulasan dan atribut restoran. Dengan menghitung kesamaan cosine dan mengurutkan restoran berdasarkan peringkat tinggi, sistem ini tidak hanya memenuhi kebutuhan pengguna untuk mendapatkan saran yang sesuai dengan preferensi mereka tetapi juga membantu restoran baru untuk membuat keputusan strategis yang efektif dan meningkatkan daya saing mereka di pasar.
+Sehingga sistem rekomendasi berbasis Content-Based Filtering ini berhasil dalam memberikan rekomendasi yang relevan berdasarkan ulasan dan atribut restoran. Dengan menghitung kesamaan cosine dan mengurutkan restoran berdasarkan peringkat tinggi, sistem ini tidak hanya memenuhi kebutuhan pengguna untuk mendapatkan saran yang sesuai dengan preferensi mereka tetapi juga membantu restoran baru untuk membuat keputusan strategis yang efektif dan meningkatkan daya saing mereka di pasar. Tingginya nilai Recall@k memastikan bahwa semua restoran yang relevan diidentifikasi, sedangkan nilai Precision@k yang lebih rendah menunjukkan area yang perlu ditingkatkan untuk mengurangi rekomendasi yang tidak relevan. Dengan demikian, sistem ini dapat memberikan insight yang relevan dan membantu restoran dalam meningkatkan daya tarik mereka di pasar.
 
 Berikut merupakan hasil dari recommendation yang tercipta :
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/recom.png)
