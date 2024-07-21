@@ -151,6 +151,59 @@ Secara keseluruhan, TF-IDF Vectorizer adalah teknik yang penting dalam pemrosesa
 **Teknik Perhitungan Similarity:**
 - **Cosine Similarity:** Mengukur kesamaan antara dua vektor dengan menghitung sudut kosinus antara vektor representasi fitur restoran. Dalam sistem rekomendasi ini, Cosine Similarity digunakan untuk menilai seberapa mirip dua restoran berdasarkan fitur seperti ulasan atau jenis masakan. Nilai Cosine Similarity berkisar antara 0 hingga 1, di mana nilai 1 menunjukkan kesamaan yang sangat tinggi dan nilai 0 menunjukkan tidak ada kesamaan.
 
+Proses atau tahapannya adalah sebagai berikut :
+1. **Data Input:**
+   - Nama restoran yang menjadi basis untuk rekomendasi.
+   - Matriks cosine similarity yang mengukur kemiripan antara semua restoran dalam dataset.
+2. **Proses Rekomendasi:**
+   - **Mengidentifikasi Indeks Restoran:** Model mencari indeks dari restoran yang diinputkan dalam daftar indeks restoran.
+   - **Menghitung Kemiripan:** Dengan menggunakan indeks yang ditemukan, model mengekstrak nilai cosine similarity dari restoran tersebut terhadap semua restoran lain dan mengurutkannya dari nilai tertinggi ke terendah.
+   - **Ekstraksi Restoran Teratas:** Model mengekstrak 30 restoran teratas berdasarkan nilai cosine similarity yang paling mirip.
+   - **Membuat DataFrame Baru:** Dari 30 restoran teratas, model membuat DataFrame baru yang berisi jenis masakan, rating rata-rata, dan biaya dari setiap restoran.
+   - **Menghapus Duplikat dan Mengurutkan:** Model menghapus restoran yang memiliki atribut yang sama dan mengurutkan 10 restoran teratas berdasarkan rating tertinggi.
+3. **Output:**
+   - Daftar 10 restoran teratas yang mirip dengan restoran yang diinputkan, beserta atribut seperti jenis masakan, rating rata-rata, dan biaya.
+
+#### Implementasi Kode
+Berikut adalah implementasi kode untuk model ini:
+
+```python
+def recommend(name, cosine_similarities=cosine_similarities):
+
+    # Buat daftar untuk menempatkan restoran teratas
+    recommend_restaurant = []
+
+    # Temukan indeks restoran yang dimasukkan
+    idx = indices[indices == name].index[0]
+
+    # Temukan restoran dengan nilai cosine-sim yang serupa dan urutkan dari jumlah terbesar
+    score_series = pd.Series(cosine_similarities[idx]).sort_values(ascending=False)
+
+    # Ekstrak 30 indeks restoran teratas dengan nilai cosine-sim yang serupa
+    top30_indexes = list(score_series.iloc[0:31].index)
+
+    # Nama top 30 restoran
+    for each in top30_indexes:
+        recommend_restaurant.append(list(df_percent.index)[each])
+
+    # Buat kumpulan data baru untuk menampilkan restoran serupa
+    df_new = pd.DataFrame(columns=['cuisines', 'Mean Rating', 'cost'])
+
+    # Buat 30 restoran serupa teratas dengan beberapa kolomnya
+    for each in recommend_restaurant:
+        df_new = pd.concat([df_new, df_percent[['cuisines','Mean Rating', 'cost']][df_percent.index == each].sample()])
+
+    # Hapus restoran dengan nama yang sama dan urutkan hanya 10 teratas berdasarkan peringkat tertinggi
+    df_new = df_new.drop_duplicates(subset=['cuisines','Mean Rating', 'cost'], keep=False)
+    df_new = df_new.sort_values(by='Mean Rating', ascending=False).head(10)
+
+    print('TOP %s RESTAURANTS LIKE %s WITH SIMILAR REVIEWS: ' % (str(len(df_new)), name))
+
+    return df_new
+
+# Contoh penggunaan
+recommend('Jalsa')
+```
 Selain itu pada proyek ini model yang digunakan juga melibatkan Natural Language Processing (NLP) dalam beberapa tahapannya, terutama dalam pembersihan teks, transformasi, dan sistem rekomendasi berbasis teks. Berikut adalah penjelasan detail mengenai model dan penggunaan NLP:
 
 1. **Pembersihan dan Persiapan Data Teks**:
@@ -177,6 +230,9 @@ Dengan menggunakan NLP untuk pembersihan, transformasi, dan analisis teks, siste
 
 ## Evaluation
 **Cosine Similarity** adalah teknik untuk mengukur kesamaan antara dua vektor dengan menghitung sudut kosinus di antara keduanya. Dalam konteks analisis teks, Cosine Similarity digunakan untuk menentukan seberapa mirip dua item berdasarkan representasi numerik mereka, seperti matriks TF-IDF. Fungsi linear_kernel digunakan untuk menghitung nilai Cosine Similarity antar item dengan mengalikan matriks TF-IDF dengan dirinya sendiri. Hasilnya adalah matriks simetri di mana setiap elemen menunjukkan tingkat kesamaan antara item yang bersangkutan.
+
+## Kesimpulan
+Proyek ini bertujuan untuk membantu restoran di Bengaluru bersaing dalam industri kuliner yang kompetitif dengan menggunakan sistem rekomendasi berbasis konten. Sistem ini menggunakan metode Content-Based Filtering untuk memberikan rekomendasi restoran yang mirip dengan restoran yang disukai pengguna berdasarkan ulasan dan peringkat. Dengan menghitung kesamaan cosine antara restoran, sistem ini dapat menyaring dan mengurutkan restoran berdasarkan kemiripan dan peringkat ulasan, menghilangkan duplikasi, serta memilih 10 restoran dengan peringkat tertinggi untuk rekomendasi. Hasilnya, restoran baru dapat memanfaatkan data ulasan dan atribut restoran untuk membuat keputusan strategis yang efektif, meningkatkan daya tarik, dan daya saing mereka di pasar.
 
 Berikut merupakan hasil dari recommendation yang tercipta :
 ![image](https://raw.githubusercontent.com/NadilaNurSholekah/MLTerapan/main/recom.png)
