@@ -19,12 +19,13 @@ Proyek ini bertujuan untuk membantu restoran di Bengaluru bersaing dalam industr
 ### Problem Statements
 - Bagaimana sistem rekomendasi Content Based Filtering dapat digunakan untuk memberikan rekomendasi restoran yang mirip dengan restoran yang disukai pengguna berdasarkan ulasan dan peringkat?
 - Bagaimana sistem rekomendasi dapat akurat dalam memberikan insight yang relevan dan meningkatkan daya tarik mereka, restoran baru perlu memanfaatkan data ulasan dan atribut restoran?
+
 ### Goals
 - Mengembangkan sistem rekomendasi berbasis Content-Based Filtering yang dapat memberikan rekomendasi restoran mirip dengan restoran yang disukai pengguna berdasarkan ulasan dan peringkat, serta memastikan rekomendasi yang diberikan relevan dan berkualitas tinggi.
 - Memanfaatkan data ulasan dan atribut restoran untuk memberikan insight yang akurat kepada restoran baru, sehingga mereka dapat membuat keputusan strategis yang efektif untuk meningkatkan daya tarik dan daya saing mereka di pasar.
 
 ### Solution statements
-Menggunakan kode berikut untuk mencapai tujuan tersebut:
+Menggunakan statements berikut untuk mencapai tujuan tersebut:
 - Menghitung Kesamaan Cosine: Menggunakan nilai kesamaan cosine untuk menentukan restoran yang paling mirip dengan restoran yang diinputkan.
 - Menampilkan Restoran Serupa: Menyaring dan mengurutkan restoran berdasarkan kesamaan dan peringkat ulasan.
 - Menghindari Duplikasi dan Memprioritaskan Peringkat: Menghilangkan restoran duplikat dan memilih 10 restoran dengan peringkat tertinggi untuk rekomendasi.
@@ -230,6 +231,30 @@ Dengan menggunakan NLP untuk pembersihan, transformasi, dan analisis teks, siste
 
 ## Evaluation
 **Cosine Similarity** adalah teknik untuk mengukur kesamaan antara dua vektor dengan menghitung sudut kosinus di antara keduanya. Dalam konteks analisis teks, Cosine Similarity digunakan untuk menentukan seberapa mirip dua item berdasarkan representasi numerik mereka, seperti matriks TF-IDF. Fungsi linear_kernel digunakan untuk menghitung nilai Cosine Similarity antar item dengan mengalikan matriks TF-IDF dengan dirinya sendiri. Hasilnya adalah matriks simetri di mana setiap elemen menunjukkan tingkat kesamaan antara item yang bersangkutan.
+
+Output dari matriks cosine similarity menunjukkan tingkat kemiripan antara semua pasangan restoran dalam dataset Anda. Berikut adalah beberapa poin penting dari output tersebut:
+
+1. **Kemiripan Maksimum (1.0):** Setiap restoran memiliki kemiripan maksimum dengan dirinya sendiri, yaitu 1.0. Ini adalah hasil dari perhitungan cosine similarity di mana vektor dari restoran yang sama akan selalu memiliki cosine similarity 1.0 dengan dirinya sendiri.
+
+2. **Kemiripan Antar Restoran:** Nilai antara 0 dan 1 menunjukkan tingkat kemiripan antara restoran yang berbeda. Nilai mendekati 1 menunjukkan kemiripan yang tinggi, sementara nilai mendekati 0 menunjukkan kemiripan yang rendah. Sebagai contoh, jika `cosine_similarities[0][1] = 0.13108466`, ini berarti restoran pertama dan restoran kedua memiliki kemiripan yang relatif rendah.
+
+3. **Distribusi Kemiripan:** Dari output yang diberikan, sebagian besar nilai kemiripan tampaknya berada di angka yang lebih rendah, yang menunjukkan bahwa banyak restoran mungkin tidak memiliki kemiripan yang sangat tinggi dengan restoran lainnya. Kemiripan yang lebih tinggi, seperti `cosine_similarities[-1][-2] = 0.55066656`, menunjukkan hubungan yang lebih signifikan antara restoran yang terakhir dan restoran kedua terakhir dalam daftar.
+
+Matriks cosine similarity menunjukkan sejauh mana restoran dalam dataset Anda mirip satu sama lain berdasarkan fitur yang dibandingkan. Nilai yang lebih tinggi menunjukkan kemiripan yang lebih besar, yang digunakan untuk merekomendasikan restoran serupa kepada pengguna. Dengan informasi ini, sistem rekomendasi dapat menyarankan restoran yang mirip dengan preferensi pengguna, meningkatkan pengalaman kuliner mereka dengan alternatif yang relevan.
+
+Pada hal ini juga menjawab problem statement yang ada dimana :
+1. Sistem rekomendasi Content-Based Filtering menggunakan matriks cosine similarity untuk mengukur kemiripan antara restoran yang disukai pengguna dan restoran lainnya dalam dataset. Dengan menghitung kemiripan antara ulasan dan peringkat restoran yang diinputkan dengan restoran lain, sistem dapat mengidentifikasi restoran yang memiliki nilai cosine similarity tinggi, yaitu restoran yang memiliki ulasan dan atribut serupa. Ini memungkinkan sistem untuk merekomendasikan restoran yang mirip dengan restoran favorit pengguna, berdasarkan kesamaan fitur seperti jenis masakan, rating, dan biaya.
+2. Sistem rekomendasi akurat dalam memberikan insight yang relevan dengan memanfaatkan data ulasan dan atribut restoran untuk menghitung cosine similarity. Nilai cosine similarity yang lebih tinggi antara restoran menunjukkan bahwa restoran tersebut memiliki kemiripan yang lebih besar dengan restoran yang disukai pengguna, baik dari segi ulasan maupun atribut seperti jenis masakan, rating, dan biaya. Dengan menghapus duplikasi dan memprioritaskan restoran dengan rating tertinggi, sistem memastikan bahwa rekomendasi yang diberikan tidak hanya mirip tetapi juga berkualitas tinggi. Restoran baru dapat menggunakan insight ini untuk memahami tren dan preferensi pelanggan, serta membuat keputusan strategis yang meningkatkan daya tarik mereka di pasar dengan menawarkan pengalaman kuliner yang sesuai dengan apa yang diinginkan pelanggan.
+
+Selain itu juga mencapai Goals yang ada dimana Sistem rekomendasi berbasis Content-Based Filtering yang dikembangkan menggunakan matriks cosine similarity mampu memberikan rekomendasi restoran yang mirip dengan restoran yang disukai pengguna dengan menganalisis ulasan dan peringkat. Dengan mengukur kemiripan antara fitur restoran, sistem dapat menyarankan restoran yang memiliki atribut serupa, seperti jenis masakan, rating, dan biaya, memastikan bahwa rekomendasi yang diberikan relevan dan berkualitas tinggi. Sistem ini juga memanfaatkan data ulasan dan atribut restoran untuk memberikan insight yang akurat kepada restoran baru. Dengan informasi ini, restoran baru dapat membuat keputusan strategis yang efektif, meningkatkan daya tarik dan daya saing mereka di pasar dengan menyesuaikan penawaran mereka dengan preferensi pelanggan yang terbukti.
+
+Pada proyek ini juga menerapkan solution statements dimana Sistem rekomendasi ini menggunakan pendekatan berbasis Content-Based Filtering dengan langkah-langkah berikut:
+- **Menghitung Kesamaan Cosine:** Sistem menghitung nilai cosine similarity antara restoran yang diinputkan dan semua restoran lain dalam dataset untuk menentukan restoran yang paling mirip. Nilai cosine similarity digunakan untuk mengukur kemiripan berdasarkan ulasan dan atribut restoran.
+- **Menampilkan Restoran Serupa:** Setelah mengukur kesamaan, sistem menyaring dan mengurutkan restoran berdasarkan nilai cosine similarity dan peringkat ulasan. Ini memungkinkan sistem untuk merekomendasikan restoran yang memiliki kemiripan tinggi dengan restoran yang disukai pengguna.
+- **Menghindari Duplikasi dan Memprioritaskan Peringkat:** Untuk memastikan rekomendasi yang berkualitas, sistem menghilangkan restoran yang duplikat dan memilih 10 restoran teratas berdasarkan peringkat tertinggi. Ini memastikan bahwa rekomendasi yang diberikan tidak hanya relevan tetapi juga berkualitas tinggi.
+
+Dengan proses ini, sistem rekomendasi memastikan bahwa pengguna menerima saran restoran yang tidak hanya mirip dengan preferensi mereka tetapi juga memiliki rating yang baik, meningkatkan relevansi dan kepuasan pengguna.
+
 
 ## Kesimpulan
 Proyek ini bertujuan untuk membantu restoran di Bengaluru bersaing dalam industri kuliner yang kompetitif dengan menggunakan sistem rekomendasi berbasis konten. Sistem ini menggunakan metode Content-Based Filtering untuk memberikan rekomendasi restoran yang mirip dengan restoran yang disukai pengguna berdasarkan ulasan dan peringkat. Dengan menghitung kesamaan cosine antara restoran, sistem ini dapat menyaring dan mengurutkan restoran berdasarkan kemiripan dan peringkat ulasan, menghilangkan duplikasi, serta memilih 10 restoran dengan peringkat tertinggi untuk rekomendasi. Hasilnya, restoran baru dapat memanfaatkan data ulasan dan atribut restoran untuk membuat keputusan strategis yang efektif, meningkatkan daya tarik, dan daya saing mereka di pasar.
