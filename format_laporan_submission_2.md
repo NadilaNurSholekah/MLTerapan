@@ -99,7 +99,7 @@ Berikut penjelasan mengenai proses text preparation :
 5. Ekstraksi Kata-Kata Teratas: Feature Extraction yakni menggunakan teknik seperti CountVectorizer untuk mengekstrak kata-kata atau n-gram (misalnya, unigram, bigram) yang paling sering muncul dalam teks, untuk memfokuskan analisis pada kata-kata yang memiliki frekuensi tinggi dan relevansi.
 6. Pengambilan Sampel Data: Sampling yakni engambil sampel acak dari dataset untuk mengurangi ukuran data dan mempercepat pemrosesan, sambil tetap mempertahankan representasi yang cukup dari keseluruhan dataset.
 
-## Modeling
+Selain itu juga melakukan preparation dengan menggunakan TF-IDF sebagai berikut : 
 TF-IDF Vectorizer adalah alat yang digunakan dalam pemrosesan teks untuk mengubah dokumen teks menjadi representasi numerik yang dapat diproses oleh algoritma pembelajaran mesin. Model ini mengukur pentingnya kata dalam dokumen relatif terhadap keseluruhan kumpulan dokumen (korpus). Berikut adalah penjelasan rinci mengenai komponen dan prinsip kerja dari TF-IDF Vectorizer:
 1. Term Frequency (TF) digunakan untuk engukur frekuensi kata dalam sebuah dokumen.
 Rumus:
@@ -135,6 +135,45 @@ Keterbatasan:
 2. Dapat menghasilkan representasi yang sangat besar dan jarang dari teks, mempengaruhi kinerja.
 
 Secara keseluruhan, TF-IDF Vectorizer adalah teknik yang penting dalam pemrosesan teks yang membantu mengubah teks mentah menjadi format yang dapat digunakan untuk analisis lebih lanjut dan pembelajaran mesin.
+
+## Modeling
+**Content-Based Filtering** adalah metode dalam sistem rekomendasi yang mengandalkan analisis fitur dari item yang direkomendasikan. Dalam konteks rekomendasi restoran, pendekatan ini fokus pada analisis atribut restoran seperti ulasan, jenis masakan, dan lokasi untuk memberikan rekomendasi yang relevan berdasarkan preferensi pengguna.
+
+**Kelebihan Content-Based Filtering:**
+- **Personalisasi Tinggi:** Rekomendasi disesuaikan dengan preferensi pengguna berdasarkan analisis fitur spesifik restoran, menghasilkan hasil yang relevan bagi individu.
+- **Independensi Data Pengguna Lain:** Tidak memerlukan data dari pengguna lain, sehingga rekomendasi tidak bergantung pada data kolaboratif atau historis pengguna lain.
+- **Fokus pada Preferensi Unik:** Menghitung preferensi spesifik pengguna tanpa terpengaruh oleh tren atau preferensi umum, memberikan rekomendasi yang lebih sesuai dengan kebutuhan pribadi.
+
+**Kekurangan Content-Based Filtering:**
+- **Terbatas pada Fitur Teramati:** Rekomendasi bergantung pada fitur yang dapat dianalisis dalam konten restoran, sehingga mungkin kurang bervariasi jika fitur-fitur yang signifikan tidak teridentifikasi.
+- **Kurang Adaptasi terhadap Preferensi Baru:** Tidak menyesuaikan secara otomatis dengan perubahan preferensi pengguna. Jika preferensi berubah, rekomendasi mungkin tetap berdasarkan preferensi lama.
+
+**Teknik Perhitungan Similarity:**
+- **Cosine Similarity:** Mengukur kesamaan antara dua vektor dengan menghitung sudut kosinus antara vektor representasi fitur restoran. Dalam sistem rekomendasi ini, Cosine Similarity digunakan untuk menilai seberapa mirip dua restoran berdasarkan fitur seperti ulasan atau jenis masakan. Nilai Cosine Similarity berkisar antara 0 hingga 1, di mana nilai 1 menunjukkan kesamaan yang sangat tinggi dan nilai 0 menunjukkan tidak ada kesamaan.
+
+Selain itu pada proyek ini model yang digunakan juga melibatkan Natural Language Processing (NLP) dalam beberapa tahapannya, terutama dalam pembersihan teks, transformasi, dan sistem rekomendasi berbasis teks. Berikut adalah penjelasan detail mengenai model dan penggunaan NLP:
+
+1. **Pembersihan dan Persiapan Data Teks**:
+   - **Normalization**: Mengubah semua teks ulasan menjadi huruf kecil untuk memastikan konsistensi.
+   - **Text Cleaning**: Menghapus tanda baca, URL, dan simbol yang tidak diperlukan dari teks ulasan.
+   - **Text Filtering**: Menghapus kata-kata umum (stopwords) yang sering muncul tetapi tidak menambah makna signifikan dalam teks.
+
+2. **Ekstraksi Fitur Teks**:
+   - **CountVectorizer**: Digunakan untuk mengekstrak kata-kata atau n-gram (misalnya, unigram, bigram) yang paling sering muncul dalam teks ulasan. Ini membantu dalam memahami pola dan frekuensi kata dalam ulasan.
+
+3. **Transformasi Teks dengan TF-IDF**:
+   - **TF-IDF (Term Frequency-Inverse Document Frequency)**: Digunakan untuk mengubah teks ulasan menjadi vektor numerik. TF-IDF membantu dalam mengukur pentingnya sebuah kata dalam dokumen tertentu relatif terhadap seluruh korpus, yang penting untuk menangkap makna semantik dari teks ulasan.
+
+4. **Menghitung Kesamaan Kosinus**:
+   - **Cosine Similarity**: Digunakan untuk mengukur kesamaan antara vektor TF-IDF dari ulasan restoran yang berbeda. Kesamaan kosinus mengukur sudut antara dua vektor dalam ruang fitur, yang membantu dalam mengidentifikasi ulasan yang mirip.
+
+5. **Sistem Rekomendasi Berbasis Teks**:
+   - Sistem rekomendasi ini menggunakan kesamaan kosinus antara vektor TF-IDF dari ulasan untuk merekomendasikan restoran yang memiliki ulasan serupa. Proses ini melibatkan beberapa langkah:
+     - Membuat matriks TF-IDF dari teks ulasan.
+     - Menghitung kesamaan kosinus antara vektor TF-IDF.
+     - Merekomendasikan restoran berdasarkan kesamaan ulasan.
+
+Dengan menggunakan NLP untuk pembersihan, transformasi, dan analisis teks, sistem ini dapat memberikan rekomendasi restoran yang lebih relevan berdasarkan kesamaan ulasan pelanggan.
 
 ## Evaluation
 **Cosine Similarity** adalah teknik untuk mengukur kesamaan antara dua vektor dengan menghitung sudut kosinus di antara keduanya. Dalam konteks analisis teks, Cosine Similarity digunakan untuk menentukan seberapa mirip dua item berdasarkan representasi numerik mereka, seperti matriks TF-IDF. Fungsi linear_kernel digunakan untuk menghitung nilai Cosine Similarity antar item dengan mengalikan matriks TF-IDF dengan dirinya sendiri. Hasilnya adalah matriks simetri di mana setiap elemen menunjukkan tingkat kesamaan antara item yang bersangkutan.
