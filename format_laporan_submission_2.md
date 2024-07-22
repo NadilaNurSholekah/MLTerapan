@@ -169,13 +169,25 @@ Berikut penjelasan lebih
 Dengan menggunakan metode ini, sistem rekomendasi dapat memberikan saran restoran yang relevan berdasarkan kesamaan atribut, meningkatkan pengalaman pengguna dalam menemukan restoran yang sesuai dengan preferensi mereka.
 
 ## Evaluation
-Evaluasi sistem rekomendasi bertujuan untuk mengukur efektivitas sistem dalam merekomendasikan restoran yang relevan. Dua metrik utama yang digunakan dalam evaluasi ini adalah **Precision@k** dan **Recall@k**:
+Evaluasi sistem rekomendasi bertujuan untuk mengukur efektivitas sistem dalam merekomendasikan restoran yang relevan. Pada Evaluasi ini melibatkan pengujian dengan menggunakan 20 restoran pertama dari dataset sebagai contoh. Hasil rekomendasi untuk setiap restoran dihitung dan dibandingkan dengan rekomendasi yang benar (true recommendations) untuk menghitung precision dan recall.Dua metrik utama yang digunakan dalam evaluasi ini adalah **Precision@k** dan **Recall@k** :
 - **Precision@k**: Mengukur proporsi rekomendasi yang relevan di antara k rekomendasi teratas.
 - **Recall@k**: Mengukur proporsi item relevan yang berhasil direkomendasikan dari total item relevan yang ada.
 
+Untuk memahami bagaimana nilai precision dan recall dapat bervariasi dengan daftar rekomendasi top-N, mari lihat hasil rekomendasi untuk 10 restoran teratas yang diperoleh dari sistem:
+Contoh Hasil Rekomendasi:
+Misalkan sistem merekomendasikan 10 restoran teratas untuk restoran A sebagai berikut:
+- Top-10 Recommendations: [Restoran 1, Restoran 2, Restoran 3, Restoran 4, Restoran 5, Restoran 6, Restoran 7, Restoran 8, Restoran 9, Restoran 10]
+Jika rekomendasi yang benar (true recommendations) untuk restoran A adalah:
+- True Recommendations: [Restoran 1, Restoran 2, Restoran 3, Restoran 4, Restoran 5, Restoran 11, Restoran 12]
+Maka:
+- Precision@10: (Jumlah rekomendasi relevan di top 10) / 10
+    Jika dari 10 rekomendasi teratas, 7 adalah relevan, maka precision@10 = 7 / 10 = 0.705.
+- Recall@10: (Jumlah rekomendasi relevan di top 10) / Total rekomendasi relevan
+    Jika ada total 7 restoran relevan dalam daftar yang benar dan 6 dari mereka muncul dalam rekomendasi top-10, maka recall@10 = 6 / 7 = 0.857, tetapi dalam contoh kita nilainya adalah 0.9164, yang berarti sistem menangkap lebih banyak item relevan dari yang diharapkan.
+
 #### Hasil Evaluasi
-- **Recall@k** yang tinggi (1.0) menunjukkan bahwa sistem sangat efektif dalam mencakup semua item relevan dalam daftar rekomendasi, memastikan bahwa semua restoran yang relevan termasuk dalam rekomendasi.
-- **Precision@k** yang lebih rendah (0.5) menunjukkan bahwa hanya setengah dari rekomendasi yang relevan, sementara setengah lainnya mungkin tidak relevan. Ini menunjukkan bahwa sistem perlu ditingkatkan untuk mengurangi jumlah rekomendasi yang tidak relevan.
+- **Recall@k** yang tinggi (0.9163888888888889) menunjukkan bahwa sistem sangat efektif dalam mencakup semua item relevan dalam daftar rekomendasi, memastikan bahwa semua restoran yang relevan termasuk dalam rekomendasi. Dimana mengukur proporsi item relevan yang berhasil direkomendasikan dari total item relevan yang ada. Dalam konteks ini, nilai recall@k sebesar 0.916 berarti bahwa sistem berhasil menangkap sekitar 91.6% dari semua item relevan dalam daftar rekomendasi yang diberikan.
+- **Precision@k** yang lebih rendah dari 1 (0.705) menunjukkan bahwa sekitar 29.5% dari rekomendasi yang diberikan oleh sistem mungkin tidak relevan. Ini mengindikasikan bahwa ada ruang untuk peningkatan dalam mengurangi jumlah rekomendasi yang tidak relevan. Sistem perlu ditingkatkan untuk memastikan bahwa proporsi rekomendasi yang tidak relevan semakin berkurang, sehingga kualitas rekomendasi menjadi lebih baik dan lebih sesuai dengan preferensi pengguna. Dimana mengukur proporsi rekomendasi yang relevan di antara k rekomendasi teratas yang diberikan oleh sistem. Dalam konteks ini, nilai precision@k sebesar 0.705 berarti bahwa sekitar 70.5% dari 10 rekomendasi teratas yang diberikan oleh sistem adalah relevan.
 
 ### Dampak Terhadap Business Understanding
 #### Menjawab Problem Statement
